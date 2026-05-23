@@ -9,11 +9,11 @@
 <title>春声 2026 · Primavera Sound</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300&family=Playfair+Display:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 :root{--bg:#0E1017;--bg2:#141720;--bg3:#1A1E2A;--line:#252A38;--text:#E8E0CC;--muted:#5A6070;--dim:#353B4A;--gold:#F5C842}
-body.light-mode{--bg:#F5F2EC;--bg2:#ECEAE3;--bg3:#E2DFD7;--line:#D0CCC0;--text:#1A1714;--muted:#888070;--dim:#BEB9B0;--gold:#B8860B;--current-set:#F0E840;--conflict-bg:#FFE0CC}
-:root{--current-set:#1A1A00;--conflict-bg:#1A0800}
-body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font-size:13px;transition:background .3s,color .3s}
+html.light-mode,body.light-mode{--bg:#F4F1EB;--bg2:#EAE7E0;--bg3:#DDD8CC;--line:#C0BBB0;--text:#1A1714;--muted:#5A564E;--dim:#9A9690;--gold:#8A6800;--current-set:#EDE050;--conflict-bg:#FFCCA8;--subtitle-color:#3A2810}
+:root{--current-set:#1A1A00;--conflict-bg:#1A0800;--subtitle-color:#EAE0CC}
+html{background:var(--bg)}body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font-size:13px;transition:background .3s,color .3s;overscroll-behavior-y:none}
 
 /* HEADER */
 #hdr{position:sticky;top:0;z-index:300;background:var(--bg2);border-bottom:1px solid var(--line)}
@@ -21,16 +21,16 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 .brand-left .ey{font-size:9px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
 .brand-title{line-height:1.15}
 .title-zh{font-family:"Noto Serif SC","Source Han Serif SC","serif";font-weight:200;font-size:22px;letter-spacing:.12em;color:var(--gold);margin-bottom:1px}
-.title-en{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-weight:800;font-size:20px;letter-spacing:.01em;color:#EAE0CC;line-height:1;text-transform:uppercase}
+.title-en{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-weight:800;font-size:15px;letter-spacing:.04em;color:var(--subtitle-color, #EAE0CC);line-height:1;text-transform:uppercase;white-space:nowrap}
 /* nav column: buttons + lang stacked */
 .nav-col{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
 .nav-row-btns{display:flex;gap:4px}
-.vt{background:var(--bg3);color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:5px 9px;font-size:16px;cursor:pointer;transition:all .15s;line-height:1;flex-shrink:0}
+.vt{background:var(--bg3);color:var(--text);border:1px solid var(--line);border-radius:5px;padding:5px 9px;font-size:16px;cursor:pointer;transition:all .15s;line-height:1;flex-shrink:0}
 .vt.on{background:var(--gold);color:#000;border-color:var(--gold)}
 .lang-theme-row{display:flex;align-items:center;gap:5px}
-.theme-btn{background:var(--bg3);border:1px solid var(--line);border-radius:5px;padding:3px 7px;font-size:14px;cursor:pointer;line-height:1;transition:all .15s}
+.theme-btn{background:var(--bg3);border:1px solid var(--line);border-radius:5px;padding:3px 7px;font-size:14px;cursor:pointer;line-height:1;transition:all .15s;color:var(--text)}
 .theme-btn:active{transform:scale(.92)}
-.lang-grp-inline{display:flex;gap:0;background:var(--bg3);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.lang-grp-inline{display:flex;gap:0;background:var(--bg2);border:1px solid var(--line);border-radius:5px;overflow:hidden}
 .lang-btn{background:none;color:var(--muted);border:none;padding:3px 8px;font-size:10px;cursor:pointer;font-family:"DM Mono",monospace;transition:all .15s;white-space:nowrap}
 .lang-btn.on{background:var(--gold)22;color:var(--gold)}
 /* day tabs row */
@@ -62,15 +62,15 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 .sfs{display:flex;gap:5px;flex-wrap:wrap}
 .sfb{border-radius:20px;padding:3px 10px;font-size:10px;border:1px solid transparent;cursor:pointer;font-family:"DM Mono",monospace;transition:all .15s;white-space:nowrap}
 .sfb.all{background:var(--bg3);color:var(--muted);border-color:var(--line)}
-.sfb.all.on{background:var(--text);color:#000}
-#sort-bar{padding:5px 12px 6px;background:var(--bg3);border-bottom:1px solid #191E2A;display:flex;gap:6px;align-items:center}
+.sfb.all.on{background:var(--gold);color:#000}
+#sort-bar{padding:5px 12px 6px;background:var(--bg3);border-bottom:1px solid var(--line);display:flex;gap:6px;align-items:center}
 #sort-bar .slbl{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 .srt{background:var(--bg3);color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:2px 9px;font-size:10px;font-family:"DM Mono",monospace;cursor:pointer;transition:all .15s}
-.srt.on{background:var(--text);color:#000}
+.srt.on{background:var(--gold);color:#000}
 
 /* SHOW LIST */
 #slist{padding-bottom:80px;background:var(--bg)}
-.si{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #191E2A;background:var(--bg);position:relative;overflow:hidden;transition:background .3s,opacity .3s}
+.si{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--bg);position:relative;overflow:hidden;transition:background .3s,opacity .3s}
 .si.dimmed{opacity:.3}
 .si.current-set{background:#1A1A00}
 @keyframes softpulse{0%,100%{background:var(--current-set)}50%{background:var(--current-set);filter:brightness(1.3)}}
@@ -80,7 +80,7 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 @keyframes pulsebar{0%,100%{opacity:1}50%{opacity:.3}}
 .stime{min-width:44px}
 .tstart{font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1}
-.tend{font-size:9px;color:var(--dim);margin-top:2px}
+.tend{font-size:9px;color:var(--muted);margin-top:2px;opacity:.7}
 .tlate{font-size:8px;color:#3A3A3A;margin-top:1px}
 .scur{font-size:8px;color:var(--gold);margin-top:1px;animation:blink 1s step-end infinite}
 @keyframes blink{50%{opacity:0}}
@@ -104,19 +104,19 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 /* MY LINEUP */
 #mylist{padding-bottom:80px;background:var(--bg);transition:background .3s}
 .my-day-header{padding:8px 14px;background:var(--bg3);border-bottom:1px solid #1A1E2A;font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;position:sticky;top:0;z-index:10}
-.my-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #191E2A;background:var(--bg);position:relative;overflow:hidden}
+.my-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--bg);position:relative;overflow:hidden}
 .my-item.conflict{background:#1A0800}
 .my-conflict-label{font-size:8px;color:#FF5722;margin-top:2px}
 .my-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:12px;line-height:2}
 
 /* INFO TAB */
-#vinfo{padding-bottom:80px;background:var(--bg);transition:background .3s}
+#vinfo{padding-bottom:80px;background:var(--bg);transition:background .3s;min-height:100vh}
 .info-section{border-bottom:1px solid var(--line);padding:16px 14px;background:var(--bg);transition:background .3s}
 .info-section:last-child{border-bottom:none}
 .info-h{font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
-.info-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+.info-row{display:flex;gap:10px;margin-bottom:8px;align-items:baseline}
 .info-row:last-child{margin-bottom:0}
-.info-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center;margin-top:1px}
+.info-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center;margin-top:0;line-height:1.5;display:flex;align-items:flex-start;justify-content:center;padding-top:1px}
 .info-text{font-size:12px;color:var(--text);opacity:.85;line-height:1.5}
 .info-text strong{color:var(--text);opacity:1}
 .info-chip{display:inline-block;background:var(--bg3);border:1px solid var(--line);border-radius:4px;padding:2px 8px;font-size:10px;color:var(--muted);margin:2px 3px 2px 0}
@@ -138,9 +138,9 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 .map-wrap{position:relative;width:100%;overflow:hidden;background:#000;touch-action:none;user-select:none}
 .map-inner{position:relative;transform-origin:0 0;will-change:transform;line-height:0;width:100%}
 #mapimg{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.hs{position:absolute;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-sizing:border-box;transition:opacity .4s,border-color .4s,background .4s}
-.hs.dimmed{opacity:.2}
-.hs.selected{box-shadow:0 0 0 3px rgba(245,200,66,.5)}
+.hs{position:absolute;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-sizing:border-box;transition:border-color .3s,box-shadow .3s,background .3s}
+/* dimming removed */
+.hs.selected{border-width:2px !important;box-shadow:0 0 12px 3px var(--hs-glow,rgba(255,255,255,.6)), 0 0 24px 6px var(--hs-glow,rgba(255,255,255,.3));}
 @keyframes hsglow{0%,100%{box-shadow:0 0 8px var(--gc,#fff)44}50%{box-shadow:0 0 18px var(--gc,#fff)88}}
 .hs-label{font-family:"DM Mono",monospace;text-shadow:0 1px 4px rgba(0,0,0,.95);background:rgba(0,0,0,.65);border-radius:3px;padding:2px 5px;pointer-events:none;white-space:nowrap;line-height:1.3;transition:opacity .4s}
 #stagepop{display:none;margin:10px 12px 0;background:var(--bg3);border:1px solid var(--line);border-radius:10px;overflow:hidden;opacity:0;transition:opacity .25s}
@@ -158,7 +158,12 @@ body{background:var(--bg);color:var(--text);font-family:"DM Mono",monospace;font
 .pop-fav.on{color:var(--gold)}
 .pop-cur{font-size:9px;color:var(--gold);margin-left:4px;animation:blink 1s step-end infinite}
 .pop-empty{padding:16px;font-size:11px;color:var(--muted);text-align:center}
-.foot{padding:12px 14px;font-size:9px;color:#2E3444;text-align:center;letter-spacing:.05em}
+.foot{padding:12px 14px;font-size:9px;color:var(--muted);text-align:center;letter-spacing:.05em}
+.watermark{padding:20px 14px env(safe-area-inset-bottom, 40px);text-align:center;border-top:1px solid var(--line);background:var(--bg)}
+.watermark-text{font-size:9px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase;margin-bottom:10px}
+.ig-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:.05em;padding:5px 12px;border:1px solid var(--line);border-radius:20px;transition:all .2s}
+.ig-link:hover{border-color:var(--gold);color:var(--gold)}
+.ig-icon{width:16px;height:16px;fill:currentColor}
 
 /* FAV SHEET */
 #fav-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:var(--bg2);transition:background .3s;border-top:1px solid var(--line);padding:10px 14px 24px;max-height:55vh;overflow-y:auto}
@@ -277,10 +282,10 @@ var LANGS={
     myEmpty:"💖 收藏艺人后\n在这里查看你的专属行程",myTitle:"我的行程",conflict:"时间冲突",
     opening:"开幕日",day1:"第一天",day2:"第二天",day3:"第三天",bits:"Bits",free:"免费",
     infoTitle:"实用信息",
-    doorsH:"开门时间",doorsBody:"主场地 Parc del Fòrum 每天 17:00 开门，持续至次日 6:00。周三开幕日为免费活动，18:00 起。",
+    doorsH:"开门时间",doorsBody:"主场地 Parc del Fòrum 每天约 16:00 开门，演出持续至次日 05:00–06:00。周三开幕日（6/3）为免费活动，约 17:00 起，地点在 Parc del Fòrum 海滨舞台。",
     transitH:"交通",metroLine:"地铁 L4（黄线）",metroStop:"El Maresme | Fòrum 站",
     nightbus:"夜巴士 N6",nightbusDesc:"凌晨收班后运营，约 15 分钟一班，可达市中心",
-    bikeDesc:"场地内有免费单车停放区",
+    bikeDesc:"场地内有免费单车停放区",metroHours:"周一至四 05:00–00:00 · 周五 05:00–02:00 · 周六 24小时连续运营",tramLine:"电车 T4 线",tramStop:"Fòrum 站 · 节日期间增加班次",daybus:"日间公交 H16 / H14 / 143 / 7 / 36",daybusDesc:"从市中心各区直达，运营时间 06:30–23:15",shuttle:"官方摆渡车",shuttleDesc:"午夜至早晨约€2，Passeig Taulat → Plaça Catalunya，AccessTicket App 可预约",walkDesc:"从市中心沿海滨步行约60分钟，地中海美景相伴",
     banH:"禁带物品",
     banItems:["玻璃瓶/金属罐","专业摄影设备（长焦镜头）","自拍杆","无人机","宠物","外带食物饮料（水除外）"],
     allowItems:["小型手提包（A4 大小以内）","可重复使用水瓶（空）","雨衣/防晒霜","处方药（携带证明）"],
@@ -300,10 +305,10 @@ var LANGS={
     myEmpty:"💖 Guarda artistas\npara ver tu itinerario personal",myTitle:"Mi agenda",conflict:"Conflicto",
     opening:"Apertura",day1:"Día 1",day2:"Día 2",day3:"Día 3",bits:"Bits",free:"Gratis",
     infoTitle:"Info práctica",
-    doorsH:"Horarios de apertura",doorsBody:"El Parc del Fòrum abre cada día a las 17:00 hasta las 6:00 del día siguiente. El miércoles de apertura es gratuito desde las 18:00.",
+    doorsH:"Horarios de apertura",doorsBody:"El Parc del Fòrum abre cada día sobre las 16:00, los conciertos siguen hasta las 05:00–06:00. El miércoles de apertura (3/6) es gratuito desde las ~17:00 en el escenario junto al mar.",
     transitH:"Transporte",metroLine:"Metro L4 (línea amarilla)",metroStop:"Parada El Maresme | Fòrum",
     nightbus:"Autobús nocturno N6",nightbusDesc:"Servicio nocturno tras el cierre del metro, cada ~15 min hasta el centro",
-    bikeDesc:"Aparcamiento de bicicletas gratuito en el recinto",
+    bikeDesc:"Aparcamiento de bicicletas gratuito en el recinto",metroHours:"L-J 05:00–00:00 · V 05:00–02:00 · S servicio continuo 24h",tramLine:"Tranvía T4",tramStop:"Parada Fòrum · Servicio reforzado durante el festival",daybus:"Autobús diurno H16 / H14 / 143 / 7 / 36",daybusDesc:"Desde distintas zonas del centro, 06:30–23:15",shuttle:"Bus lanzadera oficial",shuttleDesc:"~€2 por trayecto de medianoche al amanecer, Passeig Taulat → Plaça Catalunya. Reserva en AccessTicket app",walkDesc:"Paseo de ~60 min desde el centro por el Passeig Marítim con vistas al Mediterráneo",
     banH:"Objetos prohibidos",
     banItems:["Botellas de vidrio / latas metálicas","Equipo fotográfico profesional (teleobjetivos)","Palos selfie","Drones","Mascotas","Comida y bebida exterior (excepto agua)"],
     allowItems:["Bolso pequeño (tamaño A4)","Botella reutilizable (vacía)","Chubasquero / protector solar","Medicación con receta (con justificante)"],
@@ -323,10 +328,10 @@ var LANGS={
     myEmpty:"💖 Save artists\nto see your personal lineup here",myTitle:"My lineup",conflict:"Clash",
     opening:"Opening",day1:"Day 1",day2:"Day 2",day3:"Day 3",bits:"Bits",free:"Free",
     infoTitle:"Practical Info",
-    doorsH:"Opening hours",doorsBody:"Parc del Fòrum opens daily at 17:00 until 6:00 the next morning. Wednesday opening day is free from 18:00.",
+    doorsH:"Opening hours",doorsBody:"Parc del Fòrum opens daily around 16:00, with sets running until 05:00–06:00. Wednesday opening day (3 June) is free from ~17:00 at the seafront stage.",
     transitH:"Getting there",metroLine:"Metro L4 (Yellow line)",metroStop:"El Maresme | Fòrum stop",
     nightbus:"Night bus N6",nightbusDesc:"Runs after metro closes, every ~15 min to city centre",
-    bikeDesc:"Free bike parking inside the venue",
+    bikeDesc:"Free bike parking inside the venue",metroHours:"Mon–Thu 05:00–00:00 · Fri 05:00–02:00 · Sat 24h continuous",tramLine:"Tram T4",tramStop:"Fòrum stop · Extra services during festival days",daybus:"Day buses H16 / H14 / 143 / 7 / 36",daybusDesc:"From various city districts, 06:30–23:15",shuttle:"Official shuttle bus",shuttleDesc:"~€2/trip midnight to dawn, Passeig Taulat → Plaça Catalunya. Book via AccessTicket app",walkDesc:"~60 min walk from city centre along the beach promenade with sea views",
     banH:"Prohibited items",
     banItems:["Glass bottles / metal cans","Professional camera equipment (telephoto lenses)","Selfie sticks","Drones","Pets","Outside food & drink (water allowed)"],
     allowItems:["Small bag (up to A4 size)","Reusable water bottle (empty)","Raincoat / sunscreen","Prescription medication (with documentation)"],
@@ -636,20 +641,20 @@ function renderSchedule(){
   var isToday=getDay()&&getDay().key===curDay;
   var conflicts=getConflicts(day.shows);
   document.getElementById("fbar").innerHTML=
-    '<div class="dbadge" style="background:'+day.bc+'18;border-color:'+day.bc+'33;color:'+day.bc+'">★ '+(day.badge===t("free")?t("free"):day.badge)+'</div>'+
+    
     '<div class="sfs"><button class="sfb all'+(curStage?"":" on")+'" onclick="setStage(null)" data-i="byTime"></button>'+
     stages.map(function(s){var si=ST[s];if(!si)return"";var on=curStage===s;
-      return '<button class="sfb" onclick="setStage(\''+s.replace(/'/g,"\\'")+'\')" style="background:'+(on?si.color:"#1C2030")+';color:'+(on?"#000":si.color)+';border-color:'+si.color+'33">'+si.e+" "+si.s+'</button>';
+      return '<button class="sfb" onclick="setStage(\''+s.replace(/'/g,"\\'")+'\')" style="background:'+(on?si.color:"var(--bg3)")+';color:'+(on?"#000":si.color)+';border-color:'+si.color+(on?"cc":"55")+'">'+si.e+" "+si.s+'</button>';
     }).join("")+'</div>';
-  document.querySelector('#fbar .sfb.all').textContent=t("byTime")==="时间"?"全部":"All"||"All";
+  var allBtn=document.querySelector('#fbar .sfb.all');if(allBtn)allBtn.textContent=curLang==="zh"?"全部":(curLang==="es"?"Todo":"All");
   document.getElementById("srt-time").classList.toggle("on",curSort==="time");
   document.getElementById("srt-az").classList.toggle("on",curSort==="az");
   document.getElementById("slist").innerHTML=sorted.map(function(show){
     var si=ST[show.stage]||{color:"#888",bg:"var(--bg)",e:"🎵",s:"?"};
     var m=toMins(show.time),late=m>=1440,vl=m>=1620;
     var live=isToday&&isLive(show),faved=favs.has(show.artist),conflict=conflicts.has(show.artist);
-    var tc=vl?"#444":late?"#666":"#DDD";
-    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+'" style="background:'+(live?"#1A1A00":show.hl?si.bg:"var(--bg)")+'">'+
+    var tc=vl?"var(--dim)":late?"var(--muted)":"var(--text)";
+    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+'" style="background:'+(live?"#1A1A00":"var(--bg)")+'">'+
       (show.hl||live?'<div class="hlbar'+(live?" live":"")+'" style="background:'+si.color+'"></div>':"")+
       '<div class="stime" style="padding-left:'+(show.hl||live?"5px":"0")+'">'+
         '<div class="tstart" style="color:'+(live?si.color:tc)+'">'+show.time+'</div>'+
@@ -658,7 +663,7 @@ function renderSchedule(){
       '</div>'+
       '<div class="spill" style="background:'+si.color+'18;border-color:'+si.color+'44;color:'+si.color+'">'+si.e+" "+si.s+'</div>'+
       '<div class="sartist">'+
-        '<div class="aname" style="font-size:'+(show.hl?"15px":"13px")+';font-weight:'+(show.hl?500:400)+';color:'+(live?si.color:show.hl?si.color:"#B8B0A0")+'">'+show.artist+'</div>'+
+        '<div class="aname" style="font-size:'+(show.hl?"15px":"13px")+';font-weight:'+(show.hl?500:400)+';color:'+(live?si.color:show.hl?si.color:"var(--text)")+'">'+show.artist+'</div>'+
         (show.hl?'<div class="hllabel" style="color:'+si.color+'99">'+t("headliner")+'</div>':"")+
         (conflict&&faved?'<div class="conflict-badge">⚠ '+t("conflict")+'</div>':"")+
       '</div>'+
@@ -685,7 +690,7 @@ function renderMyLineup(){
         (live?'<div class="hlbar live" style="background:'+si.color+'"></div>':"")+
         '<div class="stime"><div class="tstart" style="color:'+(live?si.color:"#DDD")+'">'+show.time+'</div><div class="tend">–'+show.end+'</div>'+(live?'<div class="scur">'+t("live")+'</div>':"")+'</div>'+
         '<div class="spill" style="background:'+si.color+'18;border-color:'+si.color+'44;color:'+si.color+'">'+si.e+" "+si.s+'</div>'+
-        '<div class="sartist"><div class="aname" style="color:'+(live?si.color:show.hl?si.color:"#D0C8B0")+'">'+show.artist+'</div>'+
+        '<div class="sartist"><div class="aname" style="color:'+(live?si.color:show.hl?si.color:"var(--text)")+'">'+show.artist+'</div>'+
         (conflict?'<div class="my-conflict-label">⚠ '+t("conflict")+'</div>':"")+
         '</div><div class="fav-star on" onclick="toggleFav(\''+show.artist.replace(/'/g,"\\'")+'\')" style="color:var(--gold)">💖</div></div>';
     });
@@ -705,14 +710,23 @@ function renderInfo(){
   var L=LANGS[curLang];
   var html=
     '<div class="info-section">'+
+      '<div class="info-h">🌤️ '+L.weatherH+'</div>'+
+      '<div class="weather-row">'+weather.map(function(w){return '<div class="weather-day"><div class="wd-date">'+w.date+'</div><div class="wd-icon">'+w.icon+'</div><div class="wd-temp">'+w.temp+'</div><div class="wd-desc">'+w.desc+'</div></div>';}).join("")+'</div>'+
+      '<div class="info-row" style="margin-top:10px"><div class="info-icon">💡</div><div class="info-text">'+L.weatherNote+'</div></div>'+
+    '</div>'+
+    '<div class="info-section">'+
       '<div class="info-h">🕐 '+L.doorsH+'</div>'+
       '<div class="info-row"><div class="info-icon">🚪</div><div class="info-text">'+L.doorsBody+'</div></div>'+
     '</div>'+
     '<div class="info-section">'+
       '<div class="info-h">🚇 '+L.transitH+'</div>'+
-      '<div class="info-row"><div class="info-icon">🟡</div><div class="info-text"><strong>'+L.metroLine+'</strong><br>'+L.metroStop+'</div></div>'+
-      '<div class="info-row"><div class="info-icon">🚌</div><div class="info-text"><strong>'+L.nightbus+'</strong><br>'+L.nightbusDesc+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">🟡</div><div class="info-text"><strong>'+L.metroLine+'</strong><br>'+L.metroStop+'<br><span style="font-size:10px;color:var(--muted)">'+L.metroHours+'</span></div></div>'+
+      '<div class="info-row"><div class="info-icon">🚋</div><div class="info-text"><strong>'+L.tramLine+'</strong><br>'+L.tramStop+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">🚌</div><div class="info-text"><strong>'+L.daybus+'</strong><br>'+L.daybusDesc+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">🌙</div><div class="info-text"><strong>'+L.nightbus+'</strong><br>'+L.nightbusDesc+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">🚌</div><div class="info-text"><strong>'+L.shuttle+'</strong><br>'+L.shuttleDesc+'</div></div>'+
       '<div class="info-row"><div class="info-icon">🚲</div><div class="info-text">'+L.bikeDesc+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">🚶</div><div class="info-text">'+L.walkDesc+'</div></div>'+
     '</div>'+
     '<div class="info-section">'+
       '<div class="info-h">🚫 '+L.banH+'</div>'+
@@ -720,11 +734,6 @@ function renderInfo(){
       L.banItems.map(function(i){return '<span class="info-chip red">✕ '+i+'</span>';}).join("")+'</div>'+
       '<div><div style="font-size:9px;color:var(--muted);letter-spacing:.1em;margin-bottom:6px">'+L.allowLabel.toUpperCase()+'</div>'+
       L.allowItems.map(function(i){return '<span class="info-chip green">✓ '+i+'</span>';}).join("")+'</div>'+
-    '</div>'+
-    '<div class="info-section">'+
-      '<div class="info-h">🌤️ '+L.weatherH+'</div>'+
-      '<div class="weather-row">'+weather.map(function(w){return '<div class="weather-day"><div class="wd-date">'+w.date+'</div><div class="wd-icon">'+w.icon+'</div><div class="wd-temp">'+w.temp+'</div><div class="wd-desc">'+w.desc+'</div></div>';}).join("")+'</div>'+
-      '<div class="info-row" style="margin-top:10px"><div class="info-icon">💡</div><div class="info-text" style="color:var(--muted)">'+L.weatherNote+'</div></div>'+
     '</div>'+
     '<div class="info-section">'+
       '<div class="info-h">💡 '+L.tipsH+'</div>'+
@@ -774,12 +783,7 @@ function renderMap(){
   pop.style.display="none";pop.classList.remove("visible");
 }
 
-function dimOthers(selectedStage){
-  document.querySelectorAll(".hs").forEach(function(el){
-    if(selectedStage&&el.dataset.stage!==selectedStage){el.classList.add("dimmed");}
-    else{el.classList.remove("dimmed");}
-  });
-}
+function dimOthers(s){/* no dimming */}
 
 function openStagePop(stage){
   var day=DAYS.find(function(d){return d.key===curDay;});
@@ -787,7 +791,21 @@ function openStagePop(stage){
   var shows=day.shows.filter(function(s){return s.stage===stage;}).sort(function(a,b){return toMins(a.time)-toMins(b.time);});
   var isToday=getDay()&&getDay().key===curDay;
   _selStage=stage;
-  document.querySelectorAll(".hs").forEach(function(el){el.classList.remove("selected");if(el.dataset.stage===stage)el.classList.add("selected");});
+  document.querySelectorAll(".hs").forEach(function(el){
+    el.classList.remove("selected");
+    el.style.animation="";
+    el.style.boxShadow="";
+    if(el.dataset.stage===stage){
+      el.classList.add("selected");
+      // Direct box-shadow with stage color for guaranteed glow effect
+      el.style.boxShadow="0 0 14px 4px "+si.color+"aa, 0 0 28px 8px "+si.color+"55";
+      el.style.borderColor=si.color;
+      el.style.borderWidth="2px";
+    } else {
+      el.style.borderColor="";
+      el.style.borderWidth="";
+    }
+  });
   dimOthers(stage);
   var pop=document.getElementById("stagepop");
   pop.style.display="block";pop.classList.remove("visible");
@@ -814,7 +832,19 @@ function closePop(){
   pop.classList.remove("visible");
   setTimeout(function(){pop.style.display="none";},250);
   _selStage=null;
-  document.querySelectorAll(".hs").forEach(function(el){el.classList.remove("selected","dimmed");});
+  // Restore default state - re-render map to restore live animations
+  document.querySelectorAll(".hs").forEach(function(el){
+    el.classList.remove("selected");
+    el.style.boxShadow="";
+    el.style.borderColor="";
+    el.style.borderWidth="";
+    // re-apply live glow if needed
+    var stageName=el.dataset.stage;
+    var day=DAYS.find(function(d){return d.key===curDay;});
+    if(day&&day.shows.some(function(s){return s.stage===stageName&&isLive(s);})){
+      el.style.animation="hsglow 2s ease-in-out infinite";
+    }
+  });
 }
 
 // ── PINCH-ZOOM ──
@@ -853,6 +883,9 @@ function setView(v,btn){
   document.getElementById("v"+v).classList.add("on");
   document.querySelectorAll(".vt").forEach(function(el){el.classList.remove("on");});
   if(btn)btn.classList.add("on");
+  // hide day tabs for info view
+  var dtabs=document.getElementById("dtabs");
+  if(v==="info"){dtabs.style.display="none";}else{dtabs.style.display="";}
   if(v==="schedule")renderSchedule();
   else if(v==="my")renderMyLineup();
   else if(v==="info")renderInfo();
@@ -881,10 +914,12 @@ function toggleTheme(){
   var btn=document.getElementById("theme-btn");
   if(body.classList.contains("light-mode")){
     body.classList.remove("light-mode");
+    document.documentElement.classList.remove("light-mode");
     btn.textContent="🌙";
     localStorage.setItem("ps26_theme","dark");
   } else {
     body.classList.add("light-mode");
+    document.documentElement.classList.add("light-mode");
     btn.textContent="☀️";
     localStorage.setItem("ps26_theme","light");
   }
@@ -892,7 +927,7 @@ function toggleTheme(){
 // restore saved theme
 (function(){
   var saved=localStorage.getItem("ps26_theme");
-  if(saved==="light"){document.body.classList.add("light-mode");document.getElementById("theme-btn").textContent="☀️";}
+  if(saved==="light"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");document.getElementById("theme-btn").textContent="☀️";}
 })();
 
 // ── INIT ──
@@ -901,5 +936,15 @@ renderSchedule();
 renderFavBar();
 updateNowPlaying();
 </script>
+
+<div class="watermark" style="background:var(--bg)">
+  <div class="watermark-text">Made by Max777</div>
+  <a class="ig-link" href="https://www.instagram.com/xining777?igsh=MWt0ZDlxdDF0aTZhbg%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+    <svg class="ig-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    </svg>
+    @xining777
+  </a>
+</div>
 </body>
 </html>
