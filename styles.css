@@ -402,6 +402,114 @@ body {
     margin-left: auto
 }
 
+/* HAMBURGER */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: var(--bg3);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 7px 8px;
+    cursor: pointer;
+    transition: background .15s
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform .2s, opacity .2s
+}
+
+.hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg) }
+.hamburger-btn.open span:nth-child(2) { opacity: 0 }
+.hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg) }
+
+/* NAV MENU */
+#nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 240;
+    background: rgba(0,0,0,.35)
+}
+
+#nav-backdrop.open { display: block }
+
+#nav-menu {
+    display: none;
+    position: fixed;
+    top: var(--brand-h, 0px);
+    left: 0;
+    right: 0;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--line);
+    z-index: 310;
+    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    overflow: hidden
+}
+
+#nav-menu.open { display: block }
+
+.nm-nav-row {
+    display: flex;
+    border-bottom: 1px solid var(--line)
+}
+
+.nm-nav-item {
+    flex: 1;
+    padding: 14px 10px;
+    text-align: center;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 10px;
+    font-family: "DM Mono", monospace;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .15s, color .15s
+}
+
+.nm-nav-item:last-child { border-right: none }
+
+.nm-nav-item.on {
+    color: var(--gold);
+    background: var(--bg3)
+}
+
+.nm-nav-item:active { background: var(--bg3) }
+
+.nm-settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px
+}
+
+.nm-settings-row + .nm-settings-row {
+    border-top: 1px solid var(--line)
+}
+
+.nm-setting-lbl {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase
+}
+
+/* RESPONSIVE: hamburger on mobile */
+@media (max-width: 540px) {
+    .nav-row-btns { display: none }
+    .lang-theme-row { display: none }
+    .hamburger-btn { display: flex }
+}
+
 .weather-loading {
     padding: 18px 0;
     text-align: center;

@@ -33,6 +33,9 @@
         <div class="ey" id="lbl-city">Barcelona · Parc del Fòrum · Junio 2026</div>
       </div>
       <div class="nav-col">
+        <button class="hamburger-btn" id="hamburger-btn" onclick="toggleNavMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
         <div class="nav-row-btns">
           <button class="vt on" onclick="setView('schedule',this)" title="排班">📅</button>
           <button class="vt" onclick="setView('map',this)" title="地图">🗺️</button>
@@ -41,15 +44,36 @@
         <div class="lang-theme-row">
           <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
           <div class="lang-grp-inline">
-            <button class="lang-btn on" onclick="setLang('zh')" id="lang-zh">中</button>
-            <button class="lang-btn" onclick="setLang('es')" id="lang-es">ES</button>
-            <button class="lang-btn" onclick="setLang('en')" id="lang-en">EN</button>
+            <button class="lang-btn on" onclick="setLang('zh')" data-lang="zh">中</button>
+            <button class="lang-btn" onclick="setLang('es')" data-lang="es">ES</button>
+            <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
           </div>
         </div>
       </div>
     </div>
     <!-- row 2: day tabs -->
     <div id="dtabs"></div>
+  </div>
+
+  <div id="nav-backdrop" onclick="closeNavMenu()"></div>
+  <div id="nav-menu">
+    <div class="nm-nav-row">
+      <button class="nm-nav-item on" data-view="schedule" onclick="setView('schedule');closeNavMenu()"><span data-i="navSchedule">排班</span></button>
+      <button class="nm-nav-item" data-view="map" onclick="setView('map');closeNavMenu()"><span data-i="navMap">地图</span></button>
+      <button class="nm-nav-item" data-view="info" onclick="setView('info');closeNavMenu()"><span data-i="navInfo">实用信息</span></button>
+    </div>
+    <div class="nm-settings-row">
+      <span class="nm-setting-lbl" data-i="navTheme">主题</span>
+      <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+    </div>
+    <div class="nm-settings-row">
+      <span class="nm-setting-lbl" data-i="navLang">语言</span>
+      <div class="lang-grp-inline">
+        <button class="lang-btn on" onclick="setLang('zh')" data-lang="zh">中</button>
+        <button class="lang-btn" onclick="setLang('es')" data-lang="es">ES</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
+      </div>
+    </div>
   </div>
 
   <div id="now-playing">

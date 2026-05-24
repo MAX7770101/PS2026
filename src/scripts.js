@@ -357,6 +357,7 @@ function setView(v,btn){
   document.getElementById("v"+v).classList.add("on");
   document.querySelectorAll(".vt").forEach(function(el){el.classList.remove("on");});
   if(btn)btn.classList.add("on");
+  updateNavMenuActive();
   // hide day tabs for info view
   var dtabs=document.getElementById("dtabs");
   if(v==="info"){dtabs.style.display="none";}else{dtabs.style.display="";}
@@ -386,24 +387,41 @@ function render(){
 // ── THEME ──
 function toggleTheme(){
   var body=document.body;
-  var btn=document.getElementById("theme-btn");
-  if(body.classList.contains("light-mode")){
-    body.classList.remove("light-mode");
-    document.documentElement.classList.remove("light-mode");
-    btn.textContent="🌙";
+  var isLight=body.classList.contains("light-mode");
+  if(isLight){
+    body.classList.remove("light-mode");document.documentElement.classList.remove("light-mode");
+    document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="🌙";});
     localStorage.setItem("ps26_theme","dark");
   } else {
-    body.classList.add("light-mode");
-    document.documentElement.classList.add("light-mode");
-    btn.textContent="☀️";
+    body.classList.add("light-mode");document.documentElement.classList.add("light-mode");
+    document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="☀️";});
     localStorage.setItem("ps26_theme","light");
   }
 }
 // restore saved theme
 (function(){
   var saved=localStorage.getItem("ps26_theme");
-  if(saved==="light"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");document.getElementById("theme-btn").textContent="☀️";}
+  if(saved==="light"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="☀️";});}
 })();
+
+// ── NAV MENU ──
+function toggleNavMenu(){
+  var isOpen=document.getElementById("nav-menu").classList.contains("open");
+  if(isOpen){closeNavMenu();}else{
+    updateNavMenuActive();
+    document.getElementById("nav-menu").classList.add("open");
+    document.getElementById("nav-backdrop").classList.add("open");
+    document.getElementById("hamburger-btn").classList.add("open");
+  }
+}
+function closeNavMenu(){
+  document.getElementById("nav-menu").classList.remove("open");
+  document.getElementById("nav-backdrop").classList.remove("open");
+  document.getElementById("hamburger-btn").classList.remove("open");
+}
+function updateNavMenuActive(){
+  document.querySelectorAll(".nm-nav-item").forEach(function(el){el.classList.toggle("on",el.dataset.view===curView);});
+}
 
 // ── INIT ──
 renderDayTabs();
@@ -412,8 +430,14 @@ renderFavBar();
 updateNowPlaying();
 (function(){
   var hdr=document.getElementById("hdr");
+  var brand=document.querySelector(".brand");
   function syncHdrH(){document.documentElement.style.setProperty("--hdr-h",hdr.offsetHeight+"px");}
-  syncHdrH();
-  if(window.ResizeObserver){new ResizeObserver(syncHdrH).observe(hdr);}
-  else{window.addEventListener("resize",syncHdrH);}
+  function syncBrandH(){document.documentElement.style.setProperty("--brand-h",brand.offsetHeight+"px");}
+  syncHdrH();syncBrandH();
+  if(window.ResizeObserver){
+    new ResizeObserver(syncHdrH).observe(hdr);
+    new ResizeObserver(syncBrandH).observe(brand);
+  } else {window.addEventListener("resize",function(){syncHdrH();syncBrandH();});}
+  window.addEventListener("resize",function(){if(window.innerWidth>540)closeNavMenu();});
 })();
+updateNavMenuActive();
