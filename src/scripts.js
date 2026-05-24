@@ -107,7 +107,7 @@ function fetchWeather(cb){
 }
 
 // ── STATE ──
-var curDay="thu",curView="schedule",curStage=null,curSort="time",activeStageFilter=null,curFavFilter=false;
+var curDay="thu",curView="schedule",curStage=null,curSort="time",activeStageFilter=null,curFavFilter=false,curShowPast=false;
 
 // ── RENDER ──
 function renderDayTabs(){
@@ -126,7 +126,6 @@ function renderSchedule(){
   var isToday=getDay()&&getDay().key===curDay;
   var conflicts=getConflicts(day.shows);
   document.getElementById("fbar").innerHTML=
-    
     '<div class="sfs"><button class="sfb all'+(curStage?"":" on")+'" onclick="setStage(null)" data-i="byTime"></button>'+
     stages.map(function(s){var si=ST[s];if(!si)return"";var on=curStage===s;
       return '<button class="sfb" onclick="setStage(\''+s.replace(/'/g,"\\'")+'\')" style="background:'+(on?si.color:"var(--bg3)")+';color:'+(on?"#000":si.color)+';border-color:'+si.color+(on?"cc":"55")+'">'+si.e+" "+si.s+'</button>';
@@ -135,27 +134,51 @@ function renderSchedule(){
   document.getElementById("srt-time").classList.toggle("on",curSort==="time");
   document.getElementById("srt-az").classList.toggle("on",curSort==="az");
   document.getElementById("srt-fav").classList.toggle("on",curFavFilter);
-  document.getElementById("slist").innerHTML=sorted.map(function(show){
-    var si=ST[show.stage]||{color:"#888",bg:"var(--bg)",e:"🎵",s:"?"};
+
+  // Split past / upcoming when viewing the current day
+  var pastShows=[],upcomingShows=sorted;
+  if(isToday){
+    var nowM=getNow();
+    pastShows=sorted.filter(function(s){return toMins(s.end)<=nowM;});
+    upcomingShows=sorted.filter(function(s){return toMins(s.end)>nowM;});
+  }
+
+  var cardHtml=function(show,isPast){
+    var si=ST[show.stage]||{color:"#888",e:"🎵",s:"?"};
     var m=toMins(show.time),late=m>=1440,vl=m>=1620;
-    var live=isToday&&isLive(show),faved=favs.has(show.artist),conflict=conflicts.has(show.artist);
-    var tc=vl?"var(--dim)":late?"var(--muted)":"var(--text)";
-    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+'" style="background:'+(live?"#1A1A00":"var(--bg)")+'">'+
-      (show.hl||live?'<div class="hlbar'+(live?" live":"")+'" style="background:'+si.color+'"></div>':"")+
-      '<div class="stime" style="padding-left:'+(show.hl||live?"5px":"0")+'">'+
-        '<div class="tstart" style="color:'+(live?si.color:tc)+'">'+show.time+'</div>'+
+    var live=isToday&&!isPast&&isLive(show),faved=favs.has(show.artist),conflict=conflicts.has(show.artist);
+    var tc=isPast?"var(--muted)":vl?"var(--dim)":late?"var(--muted)":"var(--text)";
+    var hasBar=!isPast&&(show.hl||live);
+    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+(isPast?" past":"")+'" style="background:'+(live?"#1A1A00":"var(--bg)")+'">'+
+      (hasBar?'<div class="hlbar'+(live?" live":"")+'" style="background:'+si.color+'"></div>':"")+
+      '<div class="stime" style="padding-left:'+(hasBar?"5px":"0")+'">'+
+        '<div class="tstart" style="color:'+(isPast?"var(--muted)":live?si.color:tc)+'">'+show.time+'</div>'+
         '<div class="tend">–'+show.end+'</div>'+
-        (live?'<div class="scur">'+t("live")+'</div>':vl?'<div class="tlate">AM</div>':"")+
+        (live?'<div class="scur">'+t("live")+'</div>':(!isPast&&vl)?'<div class="tlate">AM</div>':"")+
       '</div>'+
-      '<div class="spill" style="background:'+si.color+'18;border-color:'+si.color+'44;color:'+si.color+'">'+si.e+" "+si.s+'</div>'+
+      '<div class="spill" style="background:'+si.color+(isPast?"0d":"18")+';border-color:'+si.color+(isPast?"22":"44")+';color:'+(isPast?"var(--muted)":si.color)+'">'+si.e+" "+si.s+'</div>'+
       '<div class="sartist">'+
-        '<div class="aname" style="font-size:'+(show.hl?"15px":"13px")+';font-weight:'+(show.hl?500:400)+';color:'+(live?si.color:show.hl?si.color:"var(--text)")+'">'+show.artist+'</div>'+
-        (show.hl?'<div class="hllabel" style="color:'+si.color+'99">'+t("headliner")+'</div>':"")+
-        (conflict&&faved?'<div class="conflict-badge">⚠ '+t("conflict")+'</div>':"")+
+        '<div class="aname" style="font-size:'+(show.hl?"15px":"13px")+';font-weight:'+(show.hl?500:400)+';color:'+(isPast?"var(--muted)":live?si.color:show.hl?si.color:"var(--text)")+'">'+show.artist+'</div>'+
+        (!isPast&&show.hl?'<div class="hllabel" style="color:'+si.color+'99">'+t("headliner")+'</div>':"")+
+        (!isPast&&conflict&&faved?'<div class="conflict-badge">⚠ '+t("conflict")+'</div>':"")+
       '</div>'+
       '<div class="fav-star" onclick="toggleFav(\''+show.artist.replace(/'/g,"\\'")+'\')">'+(faved?"💖":"🤍")+'</div>'+
     '</div>';
-  }).join('')+'<div class="foot">'+day.shows.length+' shows · '+day.label+'</div>';
+  };
+
+  var pastBtn="";
+  if(isToday&&pastShows.length){
+    pastBtn='<button class="past-toggle'+(curShowPast?" on":"")+'" onclick="toggleShowPast()">'+
+      (curShowPast?"▲ "+t("hidePast"):"▼ "+pastShows.length+" "+t("showPast"))+'</button>';
+  }
+
+  var html=pastBtn;
+  if(isToday&&curShowPast&&pastShows.length){
+    html+=pastShows.map(function(s){return cardHtml(s,true);}).join("")+'<div class="past-sep"></div>';
+  }
+  html+=upcomingShows.map(function(s){return cardHtml(s,false);}).join("");
+  html+='<div class="foot">'+day.shows.length+' shows · '+day.label+'</div>';
+  document.getElementById("slist").innerHTML=html;
 }
 
 function renderMyLineup(){
@@ -378,8 +401,9 @@ function setView(v,btn){
   else if(v==="info")renderInfo();
   else{renderMap();setTimeout(initMapGestures,200);}
 }
+function toggleShowPast(){curShowPast=!curShowPast;renderSchedule();}
 function setDay(k){
-  curDay=k;curStage=null;
+  curDay=k;curStage=null;curShowPast=false;
   renderDayTabs();
   if(curView==="schedule")renderSchedule();
   else if(curView==="my")renderMyLineup();

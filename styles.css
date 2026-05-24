@@ -582,6 +582,29 @@ body {
 }
 
 /* SHOW LIST */
+.past-toggle {
+    display: block;
+    width: 100%;
+    padding: 7px 14px;
+    background: var(--bg2);
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 10px;
+    font-family: "DM Mono", monospace;
+    letter-spacing: .08em;
+    text-align: left;
+    cursor: pointer
+}
+.past-toggle.on { color: var(--text) }
+.past-toggle:active { background: var(--bg3) }
+.past-sep {
+    height: 1px;
+    background: var(--line);
+    margin: 2px 0
+}
+.si.past { opacity: 0.42 }
+
 #slist {
     padding-bottom: 80px;
     background: var(--bg)

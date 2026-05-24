@@ -23,6 +23,7 @@ var LANGS={
     tipsH:"实用小贴士",
     tips:["AccessTicket 手环需在入口激活，请留出排队时间","现金充值点分布在场地各处（仅 AccessTicket 消费）","免费饮水站全场分布，自带空瓶可节省开支","场内有无障碍区域，需提前联系主办方","Nobody Is Normal 安全站提供紧急援助"],
     navSchedule:"排班",navMap:"地图",navInfo:"实用信息",navTheme:"主题",navLang:"语言",
+    showPast:"场已结束",hidePast:"隐藏已结束",
   },
   es:{
     city:"Barcelona · Parc del Fòrum · Junio 2026",
@@ -47,6 +48,7 @@ var LANGS={
     tipsH:"Consejos prácticos",
     tips:["La pulsera AccessTicket debe activarse en la entrada; deja tiempo para la cola","Puntos de recarga de efectivo distribuidos por el recinto (solo pago con AccessTicket)","Fuentes de agua gratuitas en todo el recinto","Zona accesible disponible; contacta al organizador con antelación","El punto Nobody Is Normal ofrece asistencia de emergencia"],
     navSchedule:"Horario",navMap:"Mapa",navInfo:"Información",navTheme:"Tema",navLang:"Idioma",
+    showPast:"terminados",hidePast:"Ocultar pasados",
   },
   en:{
     city:"Barcelona · Parc del Fòrum · June 2026",
@@ -71,6 +73,7 @@ var LANGS={
     tipsH:"Practical tips",
     tips:["Your AccessTicket wristband must be activated at the entrance — allow time to queue","Cash reload points are scattered around the venue (AccessTicket payment only)","Free water points throughout the venue — bring an empty reusable bottle","Accessible areas available; contact the organiser in advance","Nobody Is Normal safe space provides emergency assistance"],
     navSchedule:"Schedule",navMap:"Map",navInfo:"Info",navTheme:"Theme",navLang:"Language",
+    showPast:"ended",hidePast:"Hide ended",
   }
 };
 
