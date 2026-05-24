@@ -23,7 +23,8 @@ var LANGS={
     tipsH:"实用小贴士",
     tips:["AccessTicket 手环需在入口激活，请留出排队时间","现金充值点分布在场地各处（仅 AccessTicket 消费）","免费饮水站全场分布，自带空瓶可节省开支","场内有无障碍区域，需提前联系主办方","Nobody Is Normal 安全站提供紧急援助"],
     navSchedule:"排班",navMap:"地图",navInfo:"实用信息",navTheme:"主题",navLang:"语言",
-    showPast:"场已结束",hidePast:"隐藏已结束",
+    showPast:"场已结束",hidePast:"隐藏已结束",more:"更多",collapse:"收起",
+    disclaimer:"本站为乐迷自制的非官方指南，与 Primavera Sound S.L. 无任何关联。所有商标归各自所有者所有。演出信息仅供参考，请以<a class=\"footer-link\" href=\"https://www.primaverasound.com/es/barcelona\" target=\"_blank\" rel=\"noopener\">官方网站</a>为准。反馈或纠错请联系：",
   },
   es:{
     city:"Barcelona · Parc del Fòrum · Junio 2026",
@@ -47,8 +48,9 @@ var LANGS={
     weatherNote:"Principios de junio en Barcelona suele ser soleado, 25–30°C de día, 18–22°C de noche. Lleva protector solar y una chaqueta ligera para las sesiones de madrugada.",
     tipsH:"Consejos prácticos",
     tips:["La pulsera AccessTicket debe activarse en la entrada; deja tiempo para la cola","Puntos de recarga de efectivo distribuidos por el recinto (solo pago con AccessTicket)","Fuentes de agua gratuitas en todo el recinto","Zona accesible disponible; contacta al organizador con antelación","El punto Nobody Is Normal ofrece asistencia de emergencia"],
-    navSchedule:"Horario",navMap:"Mapa",navInfo:"Información",navTheme:"Tema",navLang:"Idioma",
-    showPast:"terminados",hidePast:"Ocultar pasados",
+    navSchedule:"Horario",navMap:"Mapa",navInfo:"Info",navTheme:"Tema",navLang:"Idioma",
+    showPast:"terminados",hidePast:"Ocultar pasados",more:"más",collapse:"colapsar",
+    disclaimer:"Sitio no oficial creado por fans. Sin afiliación con Primavera Sound S.L. Todas las marcas pertenecen a sus respectivos propietarios. Información orientativa; consulta la <a class=\"footer-link\" href=\"https://www.primaverasound.com/es/barcelona\" target=\"_blank\" rel=\"noopener\">web oficial</a>. Sugerencias o correcciones:",
   },
   en:{
     city:"Barcelona · Parc del Fòrum · June 2026",
@@ -73,7 +75,8 @@ var LANGS={
     tipsH:"Practical tips",
     tips:["Your AccessTicket wristband must be activated at the entrance — allow time to queue","Cash reload points are scattered around the venue (AccessTicket payment only)","Free water points throughout the venue — bring an empty reusable bottle","Accessible areas available; contact the organiser in advance","Nobody Is Normal safe space provides emergency assistance"],
     navSchedule:"Schedule",navMap:"Map",navInfo:"Info",navTheme:"Theme",navLang:"Language",
-    showPast:"ended",hidePast:"Hide ended",
+    showPast:"ended",hidePast:"Hide ended",more:"more",collapse:"collapse",
+    disclaimer:"Unofficial fan-made guide. Not affiliated with Primavera Sound S.L. All trademarks belong to their respective owners. Information for reference only; check the <a class=\"footer-link\" href=\"https://www.primaverasound.com/es/barcelona\" target=\"_blank\" rel=\"noopener\">official site</a>. Feedback or corrections:",
   }
 };
 
@@ -95,5 +98,7 @@ function applyLang(){
   document.getElementById("lbl-favs").textContent=t("favs");
   document.getElementById("lbl-sort").textContent=t("sort");
   document.querySelectorAll("[data-i]").forEach(function(el){el.textContent=t(el.dataset.i);});
+  var footer=document.getElementById("app-footer");
+  if(footer)footer.innerHTML=t("disclaimer")+' <a class="footer-mail" href="mailto:maxx7770101@gmail.com">maxx7770101@gmail.com</a>';
   if(curView==="info")renderInfo();
 }

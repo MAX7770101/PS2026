@@ -41,46 +41,75 @@ function getConflicts(shows){
 }
 
 // ── NOW PLAYING / UP NEXT ──
+var _npExpanded=false,_npToShow=[];
 function updateNowPlaying(){
   var today=getDay(),np=document.getElementById("now-playing");
-  var hide=function(){np.style.display="none";np.classList.remove("clash");};
-  if(!today||!favs.size){hide();return;}
+  if(!today||!favs.size){np.style.display="none";refreshMapGlow();return;}
   var nowM=getNow();
-  var favShows=today.shows.filter(function(s){return favs.has(s.artist);});
-  var liveFavs=favShows.filter(isLive);
-  var upFavs=favShows.filter(function(s){return toMins(s.time)>nowM;}).sort(function(a,b){return toMins(a.time)-toMins(b.time);});
-  var primary=liveFavs[0]||upFavs[0];
-  if(!primary){hide();return;}
-  var secondary=favShows.find(function(s){
-    return s!==primary&&toMins(s.time)<toMins(primary.end)&&toMins(s.end)>toMins(primary.time);
-  })||null;
+  var upFavs=today.shows
+    .filter(function(s){return favs.has(s.artist)&&toMins(s.time)>=nowM;})
+    .sort(function(a,b){return toMins(a.time)-toMins(b.time)||a.artist.localeCompare(b.artist);});
+  if(!upFavs.length){np.style.display="none";refreshMapGlow();return;}
+  var pivot=upFavs[0];
+  _npToShow=upFavs.filter(function(s){
+    return toMins(pivot.time)<toMins(s.end)&&toMins(s.time)<toMins(pivot.end);
+  });
+  _npExpanded=false;
   np.style.display="block";
-  var si1=ST[primary.stage]||{color:"#888",e:"🎵"};
-  var a1=document.getElementById("np-artist"),s1=document.getElementById("np-stage");
-  var a2=document.getElementById("np-artist2"),s2=document.getElementById("np-stage2");
-  a1.textContent=primary.artist;a1.style.color=si1.color;
-  s1.textContent=si1.e+" "+primary.stage;s1.style.color="";
-  if(secondary){
-    np.classList.add("clash");
-    var si2=ST[secondary.stage]||{color:"#888",e:"🎵"};
-    a2.textContent=secondary.artist;a2.style.color=si2.color;a2.style.display="block";
-    s2.textContent=si2.e+" "+secondary.stage;s2.style.display="block";
-    document.getElementById("np-label").textContent="⚠ "+t("conflict");
-  } else {
-    np.classList.remove("clash");
-    a2.style.display="none";s2.style.display="none";
-    document.getElementById("np-label").textContent=isLive(primary)?t("now"):t("next");
-  }
-  var isLivePrimary=isLive(primary);
-  if(isLivePrimary){
-    var rem=toMins(primary.end)-nowM;
-    document.getElementById("np-countdown").textContent=Math.floor(rem/60)+":"+(rem%60<10?"0":"")+rem%60;
-    document.getElementById("np-until").textContent=t("remaining");
-  } else {
-    var rem2=toMins(primary.time)-nowM;
-    document.getElementById("np-countdown").textContent=rem2<60?rem2+"min":Math.floor(rem2/60)+"h"+(rem2%60<10?"0":"")+rem2%60;
-    document.getElementById("np-until").textContent=t("startsIn");
-  }
+  document.getElementById("np-header").textContent=t("next");
+  renderNpRows();
+  refreshMapGlow();
+}
+function npToggleExpand(){_npExpanded=!_npExpanded;renderNpRows();}
+function renderNpRows(){
+  var nowM=getNow();
+  var visible=_npExpanded?_npToShow:_npToShow.slice(0,3);
+  var groups=[];
+  visible.forEach(function(s){
+    var last=groups[groups.length-1];
+    if(last&&last[0].time===s.time){last.push(s);}else{groups.push([s]);}
+  });
+  document.getElementById("np-rows").innerHTML=groups.map(function(group){
+    var mins=toMins(group[0].time)-nowM;
+    var isNow=mins<=0;
+    var ct=isNow?"NOW":mins<60?mins+"m":Math.floor(mins/60)+"h"+(mins%60<10?"0":"")+mins%60;
+    var tc=isNow?"var(--gold)":mins<=5?"#FF4040":mins<=15?"#FF8C00":mins<=30?"var(--gold)":"var(--muted)";
+    var n=group.length;
+    var fs=n===1?14:n===2?20:n===3?26:30;
+    var fw=n>1?600:500;
+    return '<div class="np-group">'+
+      '<div class="np-group-artists">'+
+      group.map(function(s){
+        var si=ST[s.stage]||{color:"#888",e:"🎵",s:"?"};
+        return '<div class="np-row">'+
+          '<div class="spill" style="background:'+si.color+'22;border-color:'+si.color+'44;color:'+si.color+'">'+si.e+" "+si.s+'</div>'+
+          '<div class="np-name" style="color:'+si.color+'">'+s.artist+'</div>'+
+          '</div>';
+      }).join("")+
+      '</div>'+
+      '<div class="np-time" style="font-size:'+fs+'px;font-weight:'+fw+';color:'+tc+'">'+ct+'</div>'+
+      '</div>';
+  }).join("");
+  var more=document.getElementById("np-more");
+  if(!_npExpanded&&_npToShow.length>3){
+    more.innerHTML='<span class="np-more-link" onclick="npToggleExpand()">+ '+(_npToShow.length-3)+" "+t("more")+' ▾</span>';
+  }else if(_npExpanded&&_npToShow.length>3){
+    more.innerHTML='<span class="np-more-link" onclick="npToggleExpand()">'+t("collapse")+' ▴</span>';
+  }else{more.innerHTML="";}
+}
+function refreshMapGlow(){
+  var stages=new Set(_npToShow.map(function(s){return s.stage;}));
+  document.querySelectorAll(".hs").forEach(function(el){
+    var s=el.dataset.stage,si=ST[s]||{color:"#888"};
+    var anim=el.style.animation||"";
+    if(anim.indexOf("hsglow")!==-1)return;
+    if(stages.has(s)){
+      el.style.setProperty("--gc",si.color);
+      el.style.animation="upnextglow 3s ease-in-out infinite";
+    }else{
+      if(anim.indexOf("upnextglow")!==-1)el.style.animation="";
+    }
+  });
 }
 setInterval(updateNowPlaying,30000);
 
@@ -175,7 +204,7 @@ function renderSchedule(){
     var live=isToday&&!isPast&&isLive(show),faved=favs.has(show.artist),conflict=conflicts.has(show.artist);
     var tc=isPast?"var(--muted)":vl?"var(--dim)":late?"var(--muted)":"var(--text)";
     var hasBar=!isPast&&(show.hl||live);
-    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+(isPast?" past":"")+'" style="background:'+(live?"#1A1A00":"var(--bg)")+'">'+
+    return '<div class="si'+(live?" current-set":"")+(faved?" faved":"")+(isPast?" past":"")+'" style="background:'+(live?"var(--current-set)":"var(--bg)")+'">'+
       (hasBar?'<div class="hlbar'+(live?" live":"")+'" style="background:'+si.color+'"></div>':"")+
       '<div class="stime" style="padding-left:'+(hasBar?"5px":"0")+'">'+
         '<div class="tstart" style="color:'+(isPast?"var(--muted)":live?si.color:tc)+'">'+show.time+'</div>'+
@@ -312,6 +341,7 @@ function renderMap(){
       if(hasShows){el.addEventListener("click",function(e){e.stopPropagation();openStagePop(stage);});}
       inner.appendChild(el);
     });
+    refreshMapGlow();
   }
   if(img.complete&&img.naturalWidth){place();}else{img.onload=place;}
   var pop=document.getElementById("stagepop");
@@ -452,18 +482,18 @@ function toggleTheme(){
   var isLight=body.classList.contains("light-mode");
   if(isLight){
     body.classList.remove("light-mode");document.documentElement.classList.remove("light-mode");
-    document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="🌙";});
+    document.querySelectorAll(".theme-icon-btn").forEach(function(b){b.textContent="🌙";});
     localStorage.setItem("ps26_theme","dark");
   } else {
     body.classList.add("light-mode");document.documentElement.classList.add("light-mode");
-    document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="☀️";});
+    document.querySelectorAll(".theme-icon-btn").forEach(function(b){b.textContent="☀️";});
     localStorage.setItem("ps26_theme","light");
   }
 }
 // restore saved theme
 (function(){
   var saved=localStorage.getItem("ps26_theme");
-  if(saved==="light"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");document.querySelectorAll(".theme-btn").forEach(function(b){b.textContent="☀️";});}
+  if(saved==="light"){document.body.classList.add("light-mode");document.documentElement.classList.add("light-mode");document.querySelectorAll(".theme-icon-btn").forEach(function(b){b.textContent="☀️";});}
 })();
 
 // ── SIM UI ──
@@ -553,6 +583,7 @@ function updateNavMenuActive(){
 }
 
 // ── INIT ──
+applyLang();
 renderDayTabs();
 renderSchedule();
 renderFavBar();

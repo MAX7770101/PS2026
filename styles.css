@@ -14,7 +14,8 @@
     --text: #E8E0CC;
     --muted: #5A6070;
     --dim: #353B4A;
-    --gold: #F5C842
+    --gold: #F5C842;
+    --live: var(--gold)
 }
 
 html.light-mode,
@@ -27,7 +28,8 @@ body.light-mode {
     --muted: #5A564E;
     --dim: #9A9690;
     --gold: #8A6800;
-    --current-set: #EDE050;
+    --current-set: #E8E2C4;
+    --live: #9E3030;
     --conflict-bg: #FFCCA8;
     --subtitle-color: #3A2810
 }
@@ -120,11 +122,13 @@ body {
     border: 1px solid var(--line);
     border-radius: 5px;
     padding: 5px 9px;
-    font-size: 16px;
+    font-size: 11px;
+    letter-spacing: .04em;
     cursor: pointer;
     transition: all .15s;
     line-height: 1;
-    flex-shrink: 0
+    flex-shrink: 0;
+    min-width: 44px
 }
 
 .vt.on {
@@ -225,7 +229,7 @@ body {
     display: none;
     background: linear-gradient(135deg, var(--bg3), var(--bg));
     border-bottom: 1px solid var(--gold)66;
-    padding: 10px 14px;
+    padding: 6px 0;
     position: sticky;
     top: var(--hdr-h, 0px);
     z-index: 150;
@@ -242,66 +246,61 @@ body {
     background: linear-gradient(90deg, var(--gold), transparent)
 }
 
-.np-glow {
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    animation: npglow 2s ease-in-out infinite;
-    pointer-events: none
-}
-
-@keyframes npglow {
-
-    0%,
-    100% {
-        box-shadow: inset 0 0 20px var(--gold)11
-    }
-
-    50% {
-        box-shadow: inset 0 0 30px var(--gold)22
-    }
-}
-
-.np-label {
+.np-header {
     font-size: 9px;
     letter-spacing: .2em;
     color: var(--gold);
     text-transform: uppercase;
-    margin-bottom: 4px
+    padding: 8px 14px 2px
 }
 
-.np-artist {
-    font-size: 15px;
-    font-weight: 500
+.np-group {
+    display: flex;
+    align-items: center
 }
 
-.np-stage {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 2px
+.np-group-artists {
+    flex: 1;
+    min-width: 0
+}
+
+.np-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0 3px 14px
+}
+
+.np-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px
 }
 
 .np-time {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: right
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    min-width: 40px;
+    text-align: right;
+    padding: 0 14px 0 8px
 }
 
-.np-countdown {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--gold);
-    font-variant-numeric: tabular-nums
+.np-more-link {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    padding: 2px 14px 6px;
+    cursor: pointer
 }
 
-.np-until {
-    font-size: 9px;
-    color: var(--muted)
+@keyframes upnextglow {
+    0%, 100% { box-shadow: 0 0 8px 2px var(--gc)33 }
+    50%       { box-shadow: 0 0 16px 5px var(--gc)66 }
 }
-#now-playing.clash .np-artist { font-size: 12px; font-weight: 400 }
-#now-playing.clash .np-stage  { font-size: 10px; margin-top: 0 }
 
 /* VIEWS */
 .view {
@@ -629,7 +628,7 @@ body {
 }
 
 .si.current-set {
-    background: #1A1A00
+    background: var(--current-set)
 }
 
 @keyframes softpulse {
@@ -641,7 +640,7 @@ body {
 
     50% {
         background: var(--current-set);
-        filter: brightness(1.3)
+        filter: brightness(1.08)
     }
 }
 
@@ -700,7 +699,7 @@ body {
 
 .scur {
     font-size: 8px;
-    color: var(--gold);
+    color: var(--live);
     margin-top: 1px;
     animation: blink 1s step-end infinite
 }
@@ -1154,7 +1153,7 @@ body {
 }
 
 .pop-show.live-row {
-    background: #1A1A00
+    background: var(--current-set)
 }
 
 .pop-time {
@@ -1187,7 +1186,7 @@ body {
 
 .pop-cur {
     font-size: 9px;
-    color: var(--gold);
+    color: var(--live);
     margin-left: 4px;
     animation: blink 1s step-end infinite
 }
@@ -1205,6 +1204,23 @@ body {
     color: var(--muted);
     text-align: center;
     letter-spacing: .05em
+}
+
+#app-footer {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+    padding: 18px 20px 6px;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+    text-align: center
+}
+
+.footer-mail,
+.footer-link {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 2px
 }
 
 .watermark {
