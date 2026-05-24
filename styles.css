@@ -220,15 +220,15 @@ body {
     margin-top: 1px
 }
 
-/* NOW PLAYING */
+/* NOW PLAYING / UP NEXT */
 #now-playing {
     display: none;
-    margin: 8px 12px;
     background: linear-gradient(135deg, var(--bg3), var(--bg));
-    border: 1px solid var(--gold)44;
-    border-radius: 12px;
+    border-bottom: 1px solid var(--gold)66;
     padding: 10px 14px;
-    position: relative;
+    position: sticky;
+    top: var(--hdr-h, 0px);
+    z-index: 150;
     overflow: hidden
 }
 
@@ -300,6 +300,8 @@ body {
     font-size: 9px;
     color: var(--muted)
 }
+#now-playing.clash .np-artist { font-size: 12px; font-weight: 400 }
+#now-playing.clash .np-stage  { font-size: 10px; margin-top: 0 }
 
 /* VIEWS */
 .view {
@@ -316,7 +318,7 @@ body {
     background: var(--bg2);
     border-bottom: 1px solid #1E2330;
     position: sticky;
-    top: var(--hdr-h, 0px);
+    top: calc(var(--hdr-h, 0px) + var(--np-h, 0px));
     z-index: 200;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch
