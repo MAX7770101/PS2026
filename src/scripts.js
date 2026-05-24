@@ -300,6 +300,35 @@ function renderInfo(){
     '<div class="info-section">'+
       '<div class="info-h">💡 '+L.tipsH+'</div>'+
       L.tips.map(function(tip){return '<div class="info-row"><div class="info-icon">→</div><div class="info-text">'+tip+'</div></div>';}).join("")+
+    '</div>'+
+    '<div class="info-section">'+
+      '<div class="info-h">🎟️ '+L.ticketsH+'</div>'+
+      '<div class="info-row"><div class="info-icon">🛒</div><div class="info-text">'+L.ticketSalesBody+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">📅</div><div class="info-text">'+L.ticketTypesBody+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">⚠</div><div class="info-text">'+L.ticketQRBody+'</div></div>'+
+    '</div>'+
+    '<div class="info-section">'+
+      '<div class="info-h">👶 '+L.minorsH+'</div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.minor12+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.minor1315+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.minor1617+'</div></div>'+
+    '</div>'+
+    '<div class="info-section">'+
+      '<div class="info-h">♿ '+L.accessH+'</div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.accessBody+'</div></div>'+
+      '<div class="info-row"><div class="info-icon">✉</div><div class="info-text"><a class="footer-link" href="mailto:'+L.accessEmail+'">'+L.accessEmail+'</a></div></div>'+
+    '</div>'+
+    '<div class="info-section">'+
+      '<div class="info-h">💳 '+L.payH+'</div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.payBody+'</div></div>'+
+    '</div>'+
+    '<div class="info-section">'+
+      '<div class="info-h">🔍 '+L.lostH+'</div>'+
+      '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+L.lostBody+'</div></div>'+
+    '</div>'+
+    '<div class="info-section" style="text-align:center">'+
+      '<div class="info-h">🔗 '+L.faqH+'</div>'+
+      '<a class="footer-link" style="font-size:13px" href="https://www.primaverasound.com/barcelona/primavera-sound-barcelona-frequently-asked-questions-faqs" target="_blank" rel="noopener">'+L.faqLink+' ↗</a>'+
     '</div>';
   document.getElementById("vinfo").innerHTML=html;
   if(!_wxCache){
