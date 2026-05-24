@@ -1158,6 +1158,21 @@ body {
     letter-spacing: .05em
 }
 
+.map-official-btn {
+    display: block;
+    text-align: center;
+    padding: 10px 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: .03em
+}
+
+.map-official-btn:active {
+    opacity: .7
+}
+
 #app-footer {
     font-size: 10px;
     color: var(--muted);
