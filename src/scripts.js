@@ -350,7 +350,9 @@ function renderMap(){
       el.style.left=l+"%";el.style.top=top+"%";
       el.style.width=sw+"%";el.style.height=sh+"%";
       el.style.background=hasShows?si.color+"22":"rgba(0,0,0,0)";
-      el.style.border=(hasShows?"2px":"1px")+" solid "+(hasShows?si.color+(hasLive?"ff":"77"):"rgba(255,255,255,0.1)");
+      var bv=(hasShows?"2px":"1px")+" solid "+(hasShows?si.color+(hasLive?"ff":"77"):"rgba(255,255,255,0.1)");
+      el.style.border=bv;
+      el.dataset.border=bv;
       if(hasLive){el.style.setProperty("--gc",si.color);el.style.animation="hsglow 2s ease-in-out infinite";}
       var lbl=document.createElement("div");
       lbl.className="hs-label";
@@ -379,8 +381,7 @@ function openStagePop(stage){
   document.querySelectorAll(".hs.selected").forEach(function(el){
     el.classList.remove("selected");
     el.style.boxShadow="";
-    el.style.borderColor="";
-    el.style.borderWidth="";
+    el.style.border=el.dataset.border||"";
     var sn=el.dataset.stage;
     if(day.shows.some(function(s){return s.stage===sn&&isLive(s);}))
       el.style.animation="hsglow 2s ease-in-out infinite";
@@ -424,8 +425,7 @@ function closePop(){
   document.querySelectorAll(".hs").forEach(function(el){
     el.classList.remove("selected");
     el.style.boxShadow="";
-    el.style.borderColor="";
-    el.style.borderWidth="";
+    el.style.border=el.dataset.border||"";
     // re-apply live glow if needed
     var stageName=el.dataset.stage;
     var day=DAYS.find(function(d){return d.key===curDay;});
