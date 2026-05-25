@@ -35,9 +35,9 @@ function Center-SF {
 # ── Icon renderer ─────────────────────────────────────────────────────────────
 #
 # Colors match site light-mode CSS variables:
-#   BG   = --bg:   #F4F1EB
-#   FG   = --text: #1A1714
-#   GOLD = --gold: #8A6800  (used for subtitle)
+#   BG        = --bg:   #F4F1EB
+#   DEEP_GOLD = #6E5000  (ornament, 春声, divider)
+#   GOLD      = --gold: #8A6800  (Stage Hop subtitle)
 #
 # Layout (fractions of safe-area height h):
 #   12%   ornament diamond center
@@ -51,12 +51,12 @@ function Draw-Icon([int]$S, [bool]$Maskable = $false) {
     $bmp = New-Object System.Drawing.Bitmap($S, $S)
     $g   = New-G $bmp
 
-    $BG     = [System.Drawing.ColorTranslator]::FromHtml("#F4F1EB")
-    $FG     = [System.Drawing.ColorTranslator]::FromHtml("#1A1714")
-    $GOLD   = [System.Drawing.ColorTranslator]::FromHtml("#8A6800")
-    $bgBr   = New-Object System.Drawing.SolidBrush($BG)
-    $fgBr   = New-Object System.Drawing.SolidBrush($FG)
-    $goldBr = New-Object System.Drawing.SolidBrush($GOLD)
+    $BG       = [System.Drawing.ColorTranslator]::FromHtml("#F4F1EB")
+    $DEEPGOLD = [System.Drawing.ColorTranslator]::FromHtml("#6E5000")
+    $GOLD     = [System.Drawing.ColorTranslator]::FromHtml("#8A6800")
+    $bgBr     = New-Object System.Drawing.SolidBrush($BG)
+    $fgBr     = New-Object System.Drawing.SolidBrush($DEEPGOLD)
+    $goldBr   = New-Object System.Drawing.SolidBrush($GOLD)
 
     $g.FillRectangle($bgBr, 0, 0, $S, $S)
 
@@ -99,7 +99,7 @@ function Draw-Icon([int]$S, [bool]$Maskable = $false) {
         $lineX1 = [float](($S - $lineW) / 2)
         $lineX2 = [float](($S + $lineW) / 2)
         $penW   = [float]([Math]::Max(1.0, $h * 0.006))
-        $pen    = New-Object System.Drawing.Pen($FG, $penW)
+        $pen    = New-Object System.Drawing.Pen($DEEPGOLD, $penW)
         $g.DrawLine($pen, $lineX1, $lineY, $lineX2, $lineY)
         $pen.Dispose()
 
