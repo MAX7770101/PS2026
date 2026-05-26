@@ -132,14 +132,13 @@ var curLang=localStorage.getItem("ps26_lang")||"en";
 function t(k){return LANGS[curLang][k]||LANGS.zh[k]||k;}
 function setLang(l){
   curLang=l;localStorage.setItem("ps26_lang",l);
-  document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.remove("on");});
-  document.querySelectorAll(".lang-btn[data-lang='"+l+"']").forEach(function(b){b.classList.add("on");});
   applyLang();
   renderDayTabs();
   render();
   updateNowPlaying();
 }
 function applyLang(){
+  document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.toggle("on",b.dataset.lang===curLang);});
   document.getElementById("lbl-city").textContent=t("city");
   document.getElementById("lbl-mapHint").textContent=t("mapHint");
   document.getElementById("lbl-reset").textContent=t("reset");
