@@ -11,9 +11,7 @@
 
 ## Screenshots
 
-| Schedule | Map | Clash detection | Install |
-|---|---|---|---|
-| ![Schedule view](assets/readme/schedule.png) | ![Map view](assets/readme/map.png) | ![Favorites and clashes](assets/readme/clash.png) | ![PWA install](assets/readme/install.png) |
+*Screenshots coming soon.*
 
 ---
 
