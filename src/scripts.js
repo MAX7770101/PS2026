@@ -6,10 +6,13 @@ function getNow(){var n=new Date(),h=n.getHours(),m=n.getMinutes();return h*60+m
 function getDay(){var d=new Date(),ds=d.toISOString().slice(0,10);return DAYS.find(function(day){return day.date===ds;})||null;}
 function isLive(show){var n=getNow();return n>=toMins(show.time)&&n<toMins(show.end);}
 
+// ── ANALYTICS ──
+function vaTrack(name,data){try{if(typeof window.va==='function')window.va('event',data?{name:name,data:data}:{name:name});}catch(e){}}
+
 // ── FAVORITES ──
 var favs=new Set(JSON.parse(localStorage.getItem("ps26_favs")||"[]"));
 function saveFavs(){localStorage.setItem("ps26_favs",JSON.stringify([...favs]));}
-function toggleFav(a){if(favs.has(a)){favs.delete(a);}else{favs.add(a);}saveFavs();render();renderFavBar();updateNowPlaying();}
+function toggleFav(a){if(favs.has(a)){favs.delete(a);}else{favs.add(a);vaTrack('favorite_artist');}saveFavs();render();renderFavBar();updateNowPlaying();}
 function toggleFavBar(){document.getElementById("fav-bar").classList.toggle("on");renderFavBar();}
 function renderFavBar(){
   var list=document.getElementById("fav-list");
@@ -377,6 +380,7 @@ function renderMap(){
 function dimOthers(s){/* no dimming */}
 
 function openStagePop(stage){
+  vaTrack('tap_stage',{stage:stage});
   var day=DAYS.find(function(d){return d.key===curDay;});
   var si=ST[stage];
   var shows=day.shows.filter(function(s){return s.stage===stage;}).sort(function(a,b){return toMins(a.time)-toMins(b.time);});
@@ -470,6 +474,7 @@ function initMapGestures(){
 
 // ── NAV ──
 function setView(v,btn){
+  vaTrack('view_tab',{view:v});
   curView=v;curStage=null;
   document.querySelectorAll(".view").forEach(function(el){el.classList.remove("on");});
   document.getElementById("v"+v).classList.add("on");
@@ -486,6 +491,7 @@ function setView(v,btn){
 }
 function toggleShowPast(){curShowPast=!curShowPast;renderSchedule();}
 function setDay(k){
+  vaTrack('switch_day',{day:k});
   curDay=k;curStage=null;curShowPast=false;
   renderDayTabs();
   if(curView==="schedule")renderSchedule();
