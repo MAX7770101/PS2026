@@ -290,6 +290,10 @@ function renderInfo(){
       L.tips.map(function(tip){return '<div class="info-row"><div class="info-icon">→</div><div class="info-text">'+tip+'</div></div>';}).join("")+
     '</div>'+
     '<div class="info-section">'+
+      '<div class="info-h">🆘 '+L.emergH+'</div>'+
+      L.emergItems.map(function(i){return '<div class="info-row"><div class="info-icon">·</div><div class="info-text">'+i+'</div></div>';}).join("")+
+    '</div>'+
+    '<div class="info-section">'+
       '<div class="info-h">🎟️ '+L.ticketsH+'</div>'+
       '<div class="info-row"><div class="info-icon">🛒</div><div class="info-text">'+L.ticketSalesBody+'</div></div>'+
       '<div class="info-row"><div class="info-icon">📅</div><div class="info-text">'+L.ticketTypesBody+'</div></div>'+
