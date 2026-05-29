@@ -567,9 +567,9 @@ updateNowPlaying();
   function syncNpH(){document.documentElement.style.setProperty("--np-h",npEl.getBoundingClientRect().height+"px");}
   syncHdrH();syncBrandH();syncNpH();
   if(window.ResizeObserver){
-    new ResizeObserver(syncHdrH).observe(hdr);
-    new ResizeObserver(syncBrandH).observe(brand);
-    new ResizeObserver(syncNpH).observe(npEl);
+    new ResizeObserver(function(e){var s=e[0].borderBoxSize;document.documentElement.style.setProperty("--hdr-h",(s?s[0].blockSize:e[0].contentRect.height)+"px");}).observe(hdr);
+    new ResizeObserver(function(e){var s=e[0].borderBoxSize;document.documentElement.style.setProperty("--brand-h",(s?s[0].blockSize:e[0].contentRect.height)+"px");}).observe(brand);
+    new ResizeObserver(function(e){var s=e[0].borderBoxSize;document.documentElement.style.setProperty("--np-h",(s?s[0].blockSize:e[0].contentRect.height)+"px");}).observe(npEl);
   } else {window.addEventListener("resize",function(){syncHdrH();syncBrandH();syncNpH();});}
   window.addEventListener("resize",function(){if(window.innerWidth>540)closeNavMenu();});
 })();
